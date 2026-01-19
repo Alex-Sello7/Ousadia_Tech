@@ -35,6 +35,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -100,6 +103,41 @@ a {
 
 [data-theme="dark"] .floating-dark-toggle .fa-moon {
   display: block;
+}
+
+/* Back to Top Button - FIXED: Positioned on bottom right */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px; /* Changed to right side */
+  width: 45px;
+  height: 45px;
+  background: var(--gradient-primary);
+  color: var(--light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 998;
+  transform: translateY(100px);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background: var(--gradient-secondary);
 }
 
 /* Page Loader */
@@ -203,7 +241,7 @@ section {
   position: absolute;
   bottom: -8px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50);
   width: 70px;
   height: 3px;
   background: var(--gradient-primary);
@@ -1814,38 +1852,6 @@ textarea.form-control {
   z-index: 0;
 }
 
-/* Back to Top Button */
-.back-to-top {
-  position: fixed;
-  bottom: -60px;
-  right: 30px;
-  width: 45px;
-  height: 45px;
-  background: var(--gradient-primary);
-  color: var(--light);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  opacity: 0;
-  z-index: 998;
-}
-
-.back-to-top.show {
-  bottom: 30px;
-  opacity: 1;
-}
-
-.back-to-top:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  background: var(--gradient-secondary);
-}
-
 /* Footer */
 .footer {
   background-color: var(--dark);
@@ -2887,6 +2893,7 @@ textarea.form-control {
   
   .about-content {
     grid-template-columns: 1fr;
+    gap: 1.8rem;
   }
   
   .about-text, .about-text p {
@@ -3012,10 +3019,14 @@ textarea.form-control {
     height: 38px;
     font-size: 0.85rem;
     right: 12px;
+    bottom: 12px;
   }
   
   .back-to-top.show {
     bottom: 12px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
   
   .data-stats {
@@ -3903,13 +3914,6 @@ textarea.form-control {
 /* ========================================================================== */
 
 /* 1. CRITICAL VIEWPORT FIXES FOR ALL PLATFORMS */
-/* Prevent text size adjustment on orientation change in iOS/Mobile Safari */
-html {
-  -webkit-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
-
 /* Fix for iOS Safari 15+ viewport height issues - SAFE VERSION */
 @supports (-webkit-touch-callout: none) {
   #hero {
@@ -3955,14 +3959,7 @@ html, body {
   }
 }
 
-/* 5. SAFE AREA INSETS FOR NOTCHED DEVICES - SAFE VERSION */
-/* Add safe area insets for iPhone X+ and modern Android devices */
-.floating-dark-toggle,
-.back-to-top {
-  left: max(30px, env(safe-area-inset-left, 30px));
-  right: max(30px, env(safe-area-inset-right, 30px));
-  bottom: max(30px, env(safe-area-inset-bottom, 30px));
-}
+
 
 /* 6. FIX FOR VIEWPORT UNITS ON MOBILE LANDSCAPE - SAFE VERSION */
 @media (orientation: landscape) and (max-height: 500px) {
